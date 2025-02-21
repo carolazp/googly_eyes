@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Upload File</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        section {
+            background-color: #9c27b0;
+            color: white;
+            padding: 10px;
+        }
+        img {
+            width: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <h2>Upload File Your face to have fun! :)</h2>
+    </section>
+
+    <img src="{{ url_for('static', filename ='imgs_logo/logo.png') }}" alt="Logo">
+
+    <!-- Action: play method from main.py, multipart/form-data for upload images -->
+    <form action="{{ url_for('play') }}" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" required>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+
+</html>
