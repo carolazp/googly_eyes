@@ -2,35 +2,50 @@ import cv2 as cv
 import numpy as np
 from PIL import Image
 
-# Load eye detector
-eyes_cascade = cv.CascadeClassifier(cv.data.haarcascades + 'haarcascade_eye.xml')
+# Load face and eye detector
+face_cascade = cv.CascadeClassifier(cv.data.haarcascades + "haarcascade_frontalface_default.xml")
+eyes_cascade = cv.CascadeClassifier(cv.data.haarcascades + "haarcascade_eye.xml")
 
+def detect_faces(img_cv: np.ndarray):
+    """Detects faces in the image."""
+    img_gray = cv.cvtColor(img_cv, cv.COLOR_BGR2GRAY)  # Convert image to grayscale
+    faces = face_cascade.detectMultiScale(img_gray, 1.3, 5)  # List of (x, y, width, height)
+    return img_gray, faces
 
-def detect_eyes(image: np.ndarray):
-    """Detects eyes in the image."""
-    gray = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
-    eyes = eyes_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=4)
-    return eyes  # list of (x,y,width, height)
-
-
-def overlay_googly_eye(image_pil: Image.Image, eyes, googly_eye_path="googly_eye.png"):
-    # TODO: SIGHTLY RANDOMISED BOTH IN SIZE AND ORIENTATION OF THE PUPILS!
+def overlay_googly_eye(image_pil: Image.Image, image_cv: np.ndarray, image_gray, faces, googly_eye_path="googly_eye.png"):
     """Overlay googly eyes on detected eyes."""
+
     googly_eye = Image.open(googly_eye_path).convert("RGBA")
     image_pil = image_pil.convert("RGBA")
 
-    for (x, y, w, h) in eyes:
-        # Modify of the eyes: TODO
-        googly_resized = googly_eye.resize((w, h))  # exact eye size, no random changes
+    for (x, y, w, h) in faces:
+        cv.rectangle(image_cv, (x, y), (x+w, y+h), (255, 0, 0), 2)  # Draw a rectangle around the face, TODO: delete this later
 
-        # Overlay on the face
-        image_pil.paste(googly_resized, (x, y), googly_resized)  # overly with transparency
+        roi_gray = image_gray[y:y+h, x:x+w]  # Region Of Interest (ROI) of the face in grayscale: in order to find eyes in this Region Of the Interest where the face is in= Grayscale ROI for eye detection
+        roi_color = image_cv[y:y+h, x:x+w]  # ROI of the face in color for add googly eyes later
 
-    return image_pil
+        roi_color_pil = Image.fromarray(roi_color) # Convert ROI: from NumPy array to PIL image (for pasting later)
+
+        eyes = eyes_cascade.detectMultiScale(roi_gray, scaleFactor=1.1, minNeighbors=4)  # List of (x, y, width, height)
+
+        for (ex, ey, ew, eh) in eyes:
+
+            # Modify of the eyes #TODO: SIGHTLY RANDOMISED BOTH IN SIZE AND ORIENTATION OF THE PUPILS, here are just pasting the googly eyes into the picture
+            googly_resized = googly_eye.resize((ew, eh))  # exact googly eye size, no random changes
+
+            # Overlay googly eye onto the face
+            roi_color_pil.paste(googly_resized, (ex, ey), googly_resized)  # Overlay with transparency
+
+        image_cv[y:y+h, x:x+w] = np.array(roi_color_pil)  # Update image with modified ROI
+
+    return image_cv
 
 
 def process_image(image_pil: Image.Image):
-    """Detect eyes and overlays googly eyes on the image."""
-    image_cv = np.array(image_pil)  # convert to OpeCV format numpy.array
-    eyes = detect_eyes(image_cv)
-    return overlay_googly_eye(image_pil, eyes)
+    """Detects faces, finds eyes and overlays googly eyes on them."""
+    image_cv = np.array(image_pil)  # Convert PIL image to OpenCV format
+
+    image_gray, faces = detect_faces(image_cv)
+    processed_image_cv = overlay_googly_eye(image_pil, image_cv, image_gray, faces)
+
+    return Image.fromarray(processed_image_cv) # Convert OpenCV format back to PIL image
