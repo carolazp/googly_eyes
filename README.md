@@ -20,15 +20,19 @@ Running the Test
 ```bash
 pytest -v test_googly_service.py
 ```
+## Input
+input.jpg    : standar picture  \
+input_pdf.jpg: document.pdf renamed as input_pdf.jpg (corrupted .jpg file)
 
 ## File Structure
 /googly_eyes
-│── googly_service.py          # Flask service
-│── process_image.py           # Function that adds googly eyes
-│── test_googly_service.py     # PyTest file for testing the googly service
-│── test_images/
-│   ├── input.jpg              # Input image (original)
-│   ├── output.png             # Output image (processed)
+
+│── googly_service.py          # Flask service                      \
+│── process_image.py           # Function that adds googly eyes     \
+│── test_googly_service.py     # PyTest file for testing the googly service \
+│── test_images/                                                    \
+│   ├── input.jpg              # Input image (original)             \
+│   ├── output.png             # Output image (processed)           \
 │── requirements.txt       # Dependencies
 
 TODO:
