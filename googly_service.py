@@ -1,6 +1,4 @@
-from flask import Flask, request, send_file, render_template
-from werkzeug.utils import secure_filename  # upload photo to server
-import os
+from flask import Flask, request, send_file
 import io
 from PIL import Image
 from process_image import process_image
@@ -16,19 +14,23 @@ def not_found(error):
 def googly_eyes():
     """Handle image uploads and returns processed images with googly eyes."""
 
-        # Modify picture, Apply googly eyes: input:original_picture -> output: googly_picture = original_picture + googly_eye above
-        processed_image = process_image(image)
+    # Take original_picture:
+    if "image" not in request.files:
+        return {"error": "No file uploaded."}, 400
 
-        # Upload googly_picture # TODO: DON'T ONLY SAVE IN THE DIRECTORY, SHOW TO THE USER TOO IN THE WEB
-        # THESE LINE: SAVE PROCESSED IMAGE IN MEMORY
-        img_io = io.BytesIO()
-        processed_image.save(img_io, format="PNG")  # Convert to bytes
-        img_io.seek(0)
+    file = request.files["image"]
+    if file.filename == "":
+        return {"error": "No selected file."}, 400
 
-        return send_file(img_io, mimetype="image/png")
+    image = Image.open(file)
 
-    return render_template("index.html")
+    # Modify picture, Apply googly eyes: input:original_picture -> output: googly_picture = original_picture + googly_eye above
+    processed_image = process_image(image)
 
+    # Upload googly_picture # TODO: DON'T ONLY SAVE IN THE DIRECTORY, SHOW TO THE USER TOO IN THE WEB
+    # THESE LINE: SAVE PROCESSED IMAGE IN MEMORY
+    img_io = io.BytesIO()
+    processed_image.save(img_io, format="PNG")  # Convert to bytes
+    img_io.seek(0)
 
-if __name__ == "__main__":
-    app.run(debug=True)
+    return send_file(img_io, mimetype="image/png")
