@@ -6,30 +6,15 @@ from PIL import Image
 from process_image import process_image
 
 # Declare name application and init
-app = Flask(__name__)
+googly_service = Flask(__name__)
 
-@app.errorhandler(404)
+@googly_service.errorhandler(404)
 def not_found(error):
     return "Route not found"
 
-@app.route("/", methods=["GET", "POST"])
-def home():
-    return render_template("index.html")
-
-@app.route("/play", methods=["GET", "POST"])
-def play():
+@googly_service.route("/googly_eyes", methods=["POST"])
+def googly_eyes():
     """Handle image uploads and returns processed images with googly eyes."""
-    if request.method == "POST":
-
-        # Take original_picture: <input type="file" name="image" required> from index.html -> image = image from bellow
-        if "image" not in request.files:
-            return {"error": "No file part"}, 400
-
-        file = request.files["image"]
-        if file.filename == "":
-            return {"error": "No selected file!"}, 400
-
-        image = Image.open(file)  # Upload image
 
         # Modify picture, Apply googly eyes: input:original_picture -> output: googly_picture = original_picture + googly_eye above
         processed_image = process_image(image)
