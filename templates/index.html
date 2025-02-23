@@ -30,7 +30,7 @@
     <img src="{{ url_for('static', filename ='imgs_logo/logo.png') }}" alt="Logo">
 
     <!-- Action: play method from main.py, multipart/form-data for upload images -->
-    <form action="{{ url_for('play') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ url_for('googly_eyes') }}" method="POST" enctype="multipart/form-data">
         <input type="file" name="image" required>
         <button type="submit">Submit</button>
     </form>
