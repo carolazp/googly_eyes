@@ -4,6 +4,7 @@ googly_face.png
 notes.md
 localtest_PILvsNumpy.ipynb
 process_image_localtest.py
+test_images/output.png
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
