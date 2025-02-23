@@ -14,7 +14,7 @@ def not_found(error):
 def googly_eyes():
     """
     Handle image uploads and returns processed images with googly eyes.
-    Input: any image format (JPEG, PNG, etc.)
+    Input: any image format (PNG, JPG)
     Output: always PNG file
     """
 
@@ -29,8 +29,8 @@ def googly_eyes():
         # Open image to verify it's valid its format
         image = Image.open(file)
 
-        if image.format not in ["PNG", "JPEG", "JPG"]:
-            return {"error": "Invalid image format. Supported formats: PNG, JPEG, JPG"}, 400
+        if image.format not in ["PNG", "JPG"]:
+            return {"error": "Invalid image format. Supported formats: PNG, JPG"}, 400
 
     except UnidentifiedImageError:
         return {"error": "Invalid image file."}, 400
