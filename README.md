@@ -9,3 +9,5 @@ Run the service localy:
 ```bash
 flask --app googly_service run
 ```
+
+TODO: slightly randomised both in size and orientation of the **pupils**
