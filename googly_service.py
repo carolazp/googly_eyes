@@ -1,6 +1,6 @@
 from flask import Flask, request, send_file
 import io
-from PIL import Image
+from PIL import Image, UnidentifiedImageError
 from process_image import process_image
 
 # Declare name application and init
@@ -14,10 +14,10 @@ def not_found(error):
 def googly_eyes():
     """
     Handle image uploads and returns processed images with googly eyes.
-    output: always PNG file
+    Input: any image format (PNG, JPG)
+    Output: always PNG file
     """
 
-    # Take original_picture:
     if "image" not in request.files:
         return {"error": "No file uploaded."}, 400
 
@@ -25,9 +25,16 @@ def googly_eyes():
     if file.filename == "":
         return {"error": "No selected file."}, 400
 
-    # TODO:  VALIDATE TYPE OF INPUT: .PNG
+    try:
+        # Open image to verify it's valid its format
+        image = Image.open(file)
 
-    image = Image.open(file)
+        if image.format not in ["PNG", "JPG"]:
+            return {"error": "Invalid image format. Supported formats: PNG, JPG"}, 400
+
+    except UnidentifiedImageError:
+        return {"error": "Invalid image file."}, 400
+
 
     # Modify picture, Apply googly eyes: input:original_picture -> output: googly_picture = original_picture + googly_eye above
     processed_image = process_image(image)
