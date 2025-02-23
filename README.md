@@ -3,3 +3,5 @@ This repository contains the Googly Eyes web service, a technical exercise for O
 
 
 pip install -r requirements.txt
+
+TODO: slightly randomised both in size and orientation of the **pupils**
