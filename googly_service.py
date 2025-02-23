@@ -12,7 +12,10 @@ def not_found(error):
 
 @googly_service.route("/googly_eyes", methods=["POST"])
 def googly_eyes():
-    """Handle image uploads and returns processed images with googly eyes."""
+    """
+    Handle image uploads and returns processed images with googly eyes.
+    output: always PNG file
+    """
 
     # Take original_picture:
     if "image" not in request.files:
@@ -21,6 +24,8 @@ def googly_eyes():
     file = request.files["image"]
     if file.filename == "":
         return {"error": "No selected file."}, 400
+
+    # TODO:  VALIDATE TYPE OF INPUT: .PNG
 
     image = Image.open(file)
 
