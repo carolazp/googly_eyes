@@ -1,5 +1,6 @@
-flask==3.0.3
+flask==2.2.5
 opencv-python==4.10.0.84
 numpy==1.23.5
 pillow==11.0.0
 pytest==8.3.3
+werkzeug==2.2.2
