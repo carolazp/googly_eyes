@@ -7,19 +7,25 @@ face_cascade = cv.CascadeClassifier(cv.data.haarcascades + "haarcascade_frontalf
 eyes_cascade = cv.CascadeClassifier(cv.data.haarcascades + "haarcascade_eye.xml")
 
 def detect_faces(img_cv: np.ndarray):
-    """Detects faces in the image."""
+    """
+    Detects faces in the image.
+    input: np.ndarray
+    outpt: img_day , face
+    """
     img_gray = cv.cvtColor(img_cv, cv.COLOR_BGR2GRAY)  # Convert image to grayscale
     faces = face_cascade.detectMultiScale(img_gray, 1.3, 5)  # List of (x, y, width, height)
     return img_gray, faces
 
-def overlay_googly_eye(image_pil: Image.Image, image_cv: np.ndarray, image_gray, faces, googly_eye_path="googly_eye.png"):
-    """Overlay googly eyes on detected eyes."""
+def overlay_googly_eye(image_cv: np.ndarray, image_gray, faces, googly_eye_path="googly_eye.png"):
+    """
+    Overlay googly eyes on detected eyes.
+    input: np.ndarray
+    output: np.ndarray
+    """
 
     googly_eye = Image.open(googly_eye_path).convert("RGBA")
-    image_pil = image_pil.convert("RGBA")
 
     for (x, y, w, h) in faces:
-        cv.rectangle(image_cv, (x, y), (x+w, y+h), (255, 0, 0), 2)  # Draw a rectangle around the face, TODO: delete this later
 
         roi_gray = image_gray[y:y+h, x:x+w]  # Region Of Interest (ROI) of the face in grayscale: in order to find eyes in this Region Of the Interest where the face is in= Grayscale ROI for eye detection
         roi_color = image_cv[y:y+h, x:x+w]  # ROI of the face in color for add googly eyes later
@@ -42,10 +48,16 @@ def overlay_googly_eye(image_pil: Image.Image, image_cv: np.ndarray, image_gray,
 
 
 def process_image(image_pil: Image.Image):
-    """Detects faces, finds eyes and overlays googly eyes on them."""
+    """
+    Detects faces, finds eyes and overlays googly eyes on them.
+    input: image_pill in Image.Image
+    output: in Image.Image ?
+    """
+
+    image_pil = image_pil.convert("RGBA")
     image_cv = np.array(image_pil)  # Convert PIL image to OpenCV format
 
     image_gray, faces = detect_faces(image_cv)
-    processed_image_cv = overlay_googly_eye(image_pil, image_cv, image_gray, faces)
+    processed_image_cv = overlay_googly_eye(image_cv, image_gray, faces)
 
     return Image.fromarray(processed_image_cv) # Convert OpenCV format back to PIL image
