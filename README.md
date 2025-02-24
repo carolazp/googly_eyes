@@ -22,6 +22,7 @@ The service is implemented as an HTTP POST endpoint receiving the image and repl
 
 ## Installation
 
+Install Python version 3.11.2.
 Install the necessary dependencies:
 
 ```bash
