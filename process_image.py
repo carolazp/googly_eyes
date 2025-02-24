@@ -44,13 +44,21 @@ def overlay_googly_eye(image_cv: np.ndarray, image_gray: np.ndarray, faces: list
 
         for (ex, ey, ew, eh) in eyes:
 
-            # Modify of the eyes #TODO: SIGHTLY RANDOMISED BOTH IN SIZE AND ORIENTATION OF THE PUPILS, here are just pasting the googly eyes into the picture
-            googly_resized = googly_eye.resize((ew, eh))  # exact googly eye size, no random changes
+            # Add googly eyes: size and orientation of the pupils
+            center = (x + ex + ew//2, y + ey + eh//2)
+            radius = ew // 2
 
-            # Overlay googly eye onto the face
-            roi_color_pil.paste(googly_resized, (ex, ey), googly_resized)  # Overlay with transparency
+            # White eye
+            cv.circle(image_cv, center, radius, (255, 255, 255), -1)
 
-        image_cv[y:y+h, x:x+w] = np.array(roi_color_pil)  # Update image with modified ROI
+            # Black pupil
+            pupil_offset = np.random.randint(-radius//3, radius//3)  # Random pupil position (orientation)
+            pupil_size = np.random.randint(radius//2, radius)     # Random pupil size
+            cv.circle(img=image_cv,
+                        center=(center[0] + pupil_offset, center[1] + pupil_offset),
+                        radius=pupil_size, #(radius//3),
+                        color=(0, 0, 0),
+                        thickness= -1)
 
     return image_cv
 
