@@ -34,8 +34,8 @@ input_pdf.jpg: document.pdf renamed as input_pdf.jpg (corrupted .jpg file)
 │   ├── input.jpg              # Input image (originals)             \
 │   ├── output_images/         # Output image directory (processed)           \
 │   ├── input_images/          # Input image directory               \
-│── requirements.txt           # Dependencies
-│── .gitignore
+│── requirements.txt           # Dependencies                          \
+│── .gitignore          \
 │── README.md
 
 ## Results
