@@ -56,7 +56,7 @@ def overlay_googly_eye(image_cv: np.ndarray, image_gray: np.ndarray, faces: list
             pupil_size = np.random.randint(radius//2, radius)     # Random pupil size
             cv.circle(img=image_cv,
                         center=(center[0] + pupil_offset, center[1] + pupil_offset),
-                        radius=pupil_size, #(radius//3),
+                        radius=pupil_size,
                         color=(0, 0, 0),
                         thickness= -1)
 
