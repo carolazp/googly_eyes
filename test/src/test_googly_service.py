@@ -1,7 +1,16 @@
 import pytest
 import os
 from PIL import Image
-from service.src.googly_service import googly_service
+import sys
+
+# Add the 'service/src' directory to the Python path
+sys.path.append(
+    os.path.abspath(os.path.join(os.path.dirname(__file__), '../../service/src'))
+)
+
+# Import the googly_service module
+from googly_service import googly_service
+
 
 # Inputs paths for images files
 INPUT_IMAGE_PNG_PATH = "test_images/input.png"
