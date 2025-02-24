@@ -31,10 +31,12 @@ input_pdf.jpg: document.pdf renamed as input_pdf.jpg (corrupted .jpg file)
 │── process_image.py           # Function that adds googly eyes     \
 │── test_googly_service.py     # PyTest file for testing the googly service \
 │── test_images/                                                    \
-│   ├── input.jpg              # Input image (original)             \
-│   ├── output.png             # Output image (processed)           \
-│── requirements.txt       # Dependencies
-
+│   ├── input.jpg              # Input image (originals)             \
+│   ├── output_images/         # Output image directory (processed)           \
+│   ├── input_images/          # Input image directory               \
+│── requirements.txt           # Dependencies
+│── .gitignore
+│── README.md
 
 ## Results
 Before: \
@@ -43,5 +45,6 @@ Before: \
 
 After:\
 ![Alt text](test_images/output_images/output_jpg.png)
+
 
 Have fun!
