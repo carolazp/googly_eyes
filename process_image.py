@@ -12,7 +12,7 @@ def detect_faces(img_cv: np.ndarray):
 
     Args:
         img_cv (np.ndarray): The input image in NumPy array format (OpenCV style).
-    
+
     Returns:
         - img_gray (np.ndarray): Grayscale version of the input image.
         - faces (list): A list of faces detected, each represented by a tuple (x, y, width, height).
@@ -30,7 +30,7 @@ def overlay_googly_eye(image_cv: np.ndarray, image_gray: np.ndarray, faces: list
         image_gray (np.ndarray): Grayscale version of the input image used for eye detection.
         faces (list): A list of faces detected, each represented by a tuple (x, y, width, height).
         googly_eye_path (str): Path to the googly eye image file. Defaults to "googly_eye.png".
-        
+
     Returns:
         image_cv (np.ndarray): The processed image with googly eyes overlaid.
     """
