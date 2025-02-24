@@ -7,7 +7,6 @@ import sys
 sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), '../../service/src'))
 )
-
 # Import the googly_service module
 from googly_service import googly_service
 
