@@ -1,6 +1,7 @@
 # Mine
 notes.md
 local_test_pupils/
+Dockerfile
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
