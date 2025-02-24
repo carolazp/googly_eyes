@@ -1,7 +1,6 @@
 # Mine
 notes.md
 localtest_PILvsNumpy.ipynb
-test_images/output_images/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
