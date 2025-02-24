@@ -13,14 +13,14 @@ from googly_service import googly_service
 
 
 # Inputs paths for images files
-INPUT_IMAGE_PNG_PATH = "test_images/input.png"
-INPUT_IMAGE_JPG_PATH = "test_images/input.jpg"
-INPUT_PDF_PATH = "test_images/input.pdf"
-INPUT_IMAGE_GIF_PATH = "test_images/input.gif"
-INPUT_IMAGE_NO_EYES_PATH = "test_images/input_no_eyes.png"
+INPUT_IMAGE_PNG_PATH = os.path.join("test", "resources", "input_images", "input.png")
+INPUT_IMAGE_JPG_PATH = os.path.join("test", "resources", "input_images", "input.jpg")
+INPUT_PDF_PATH = os.path.join("test", "resources", "input_images", "input.pdf")
+INPUT_IMAGE_GIF_PATH = os.path.join("test", "resources", "input_images", "input.gif")
+INPUT_IMAGE_NO_EYES_PATH = os.path.join("test", "resources", "input_images", "input_no_eyes.png")
 
 # Output directory where processed images will be saved
-OUTPUT_DIR = "test_images/output_images"
+OUTPUT_DIR = os.path.join("test", "resources", "output_images")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 @pytest.fixture
