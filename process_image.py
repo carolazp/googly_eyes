@@ -2,25 +2,37 @@ import cv2 as cv
 import numpy as np
 from PIL import Image
 
-# Load face and eye detector
+# Load face and eye detector using OpenCV's pre-trained Haar cascades
 face_cascade = cv.CascadeClassifier(cv.data.haarcascades + "haarcascade_frontalface_default.xml")
 eyes_cascade = cv.CascadeClassifier(cv.data.haarcascades + "haarcascade_eye.xml")
 
 def detect_faces(img_cv: np.ndarray):
     """
-    Detects faces in the image.
-    input: np.ndarray
-    outpt: img_day , face
+    Detects faces in the provided image using OpenCV's Haar cascade classifier.
+
+    Args:
+        img_cv (np.ndarray): The input image in NumPy array format (OpenCV style).
+    
+    Returns:
+        - img_gray (np.ndarray): Grayscale version of the input image.
+        - faces (list): A list of faces detected, each represented by a tuple (x, y, width, height).
     """
-    img_gray = cv.cvtColor(img_cv, cv.COLOR_BGR2GRAY)  # Convert image to grayscale
-    faces = face_cascade.detectMultiScale(img_gray, 1.3, 5)  # List of (x, y, width, height)
+    img_gray = cv.cvtColor(img_cv, cv.COLOR_BGR2GRAY)
+    faces = face_cascade.detectMultiScale(img_gray, 1.3, 5)
     return img_gray, faces
 
-def overlay_googly_eye(image_cv: np.ndarray, image_gray, faces, googly_eye_path="googly_eye.png"):
+def overlay_googly_eye(image_cv: np.ndarray, image_gray: np.ndarray, faces: list, googly_eye_path: str="googly_eye.png"):
     """
-    Overlay googly eyes on detected eyes.
-    input: np.ndarray
-    output: np.ndarray
+    Overlays googly eyes onto the detected faces in the image.
+
+    Args:
+        image_cv (np.ndarray): The input image in OpenCV style (color image).
+        image_gray (np.ndarray): Grayscale version of the input image used for eye detection.
+        faces (list): A list of faces detected, each represented by a tuple (x, y, width, height).
+        googly_eye_path (str): Path to the googly eye image file. Defaults to "googly_eye.png".
+        
+    Returns:
+        image_cv (np.ndarray): The processed image with googly eyes overlaid.
     """
 
     googly_eye = Image.open(googly_eye_path).convert("RGBA")
@@ -49,9 +61,13 @@ def overlay_googly_eye(image_cv: np.ndarray, image_gray, faces, googly_eye_path=
 
 def process_image(image_pil: Image.Image):
     """
-    Detects faces, finds eyes and overlays googly eyes on them.
-    input: image_pill in Image.Image
-    output: in Image.Image ?
+    Processes the input image by detecting faces, detecting eyes, and overlaying googly eyes on the faces.
+    
+    Args:
+        image_pil (Image.Image): The input image in PIL Image format.
+        
+    Returns:
+        Image.Image: The processed image with googly eyes overlayed, in PIL Image format.
     """
 
     image_pil = image_pil.convert("RGBA")
