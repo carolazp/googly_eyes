@@ -35,6 +35,13 @@ input_pdf.jpg: document.pdf renamed as input_pdf.jpg (corrupted .jpg file)
 │   ├── output.png             # Output image (processed)           \
 │── requirements.txt       # Dependencies
 
-TODO:
-- slightly randomised both in size and orientation of the **pupils**
-- delete rectangule of detecting face
+
+## Results
+Before: \
+![Alt text](test_images/input.jpg)
+
+
+After:\
+![Alt text](test_images/output_images/output_jpg.png)
+
+Have fun!
