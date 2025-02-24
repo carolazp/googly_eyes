@@ -40,11 +40,11 @@ input_pdf.jpg: document.pdf renamed as input_pdf.jpg (corrupted .jpg file)
 
 ## Results
 Before: \
-![Alt text](test_images/input.jpg)
+![Alt text](test/resources/input_images/input.jpg)
 
 
 After:\
-![Alt text](test_images/output_images/output_jpg.png)
+![Alt text](test/resources/output_images/output_jpg.png)
 
 
 Have fun!
