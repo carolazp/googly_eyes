@@ -24,19 +24,23 @@ pytest -v test_googly_service.py
 input.jpg    : standar picture  \
 input_pdf.jpg: document.pdf renamed as input_pdf.jpg (corrupted .jpg file)
 
-## File Structure
-/googly_eyes
 
-│── googly_service.py          # Flask service                      \
-│── process_image.py           # Function that adds googly eyes     \
-│── test_googly_service.py     # PyTest file for testing the googly service \
-│── test_images/                                                    \
-│   ├── input.jpg              # Input image (originals)             \
-│   ├── output_images/         # Output image directory (processed)           \
-│   ├── input_images/          # Input image directory               \
-│── requirements.txt           # Dependencies                          \
-│── .gitignore          \
-│── README.md
+## File Structure
+/googly_eyes                                                            \
+│── service/                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;       # The core service                       \
+│   ├── src/                     &emsp;&emsp;&emsp;                       # Source code for the service             \
+│       ├── googly_service.py    &emsp;&emsp;&emsp;                       # Core Flask service logic for adding googly eyes \
+│       ├── process_image.py     &emsp;&emsp;&emsp;                       # Image processing functions that add googly eyes \
+│── test/                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;       # Test files and resources               \
+│   ├── resources/               &emsp;&emsp;&emsp;                       # Input and output images for testing    \
+│       ├── input_images/        &emsp;&emsp;&emsp;                       # Sample input images                    \
+│       ├── output_images/       &emsp;&emsp;&emsp;                       # Expected output images after processing\
+│   ├── src/                     &emsp;&emsp;&emsp;                       # Test scripts                            \
+│       ├── test_googly_service.py&emsp;&emsp;&emsp;                       # Integration tests for the service      \
+│── requirements.txt             &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;       # Python dependencies                    \
+│── .gitignore                   &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;       # Git ignore file                        \
+│── README.md                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;       # This README file                       \
+
 
 ## Results
 Before: \
