@@ -66,15 +66,15 @@ def overlay_googly_eye(image_cv: np.ndarray, image_gray: np.ndarray, faces: list
 def process_image(image_pil: Image.Image):
     """
     Processes the input image by detecting faces, detecting eyes, and overlaying googly eyes on the faces.
-    
+
     Args:
         image_pil (Image.Image): The input image in PIL Image format.
-        
+
     Returns:
         Image.Image: The processed image with googly eyes overlayed, in PIL Image format.
     """
 
-    image_pil = image_pil.convert("RGBA")
+    image_pil = image_pil.convert("RGB")
     image_cv = np.array(image_pil)  # Convert PIL image to OpenCV format
 
     image_gray, faces = detect_faces(image_cv)
